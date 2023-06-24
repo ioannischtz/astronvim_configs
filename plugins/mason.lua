@@ -1,5 +1,12 @@
 -- customize mason plugins
 return {
+  {
+    -- This is needed for pylint to work in a virtualenv. See https://github.com/williamboman/mason.nvim/issues/668#issuecomment-1320859097
+    "williamboman/mason.nvim",
+    opts = {
+      PATH = "append",
+    },
+  },
   -- use mason-lspconfig to configure LSP installations
   {
     "williamboman/mason-lspconfig.nvim",
@@ -7,7 +14,15 @@ return {
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
       opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
-        -- "lua_ls",
+        "lua_ls",
+        "pyright",
+        "ruff_lsp",
+        -- "pylsp",
+        "cssls",
+        "cssmodules_ls",
+        "emmet_ls",
+        "html",
+        "esbonio",
       })
     end,
   },
@@ -19,7 +34,13 @@ return {
       -- add more things to the ensure_installed table protecting against community packs modifying it
       opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
         -- "prettier",
-        -- "stylua",
+        "stylua",
+        "isort",
+        "black",
+        -- "pylint",
+        "flake8",
+        "prettierd",
+        "eslint",
       })
     end,
   },
@@ -29,7 +50,7 @@ return {
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
       opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
-        -- "python",
+        "python",
       })
     end,
   },

@@ -11,7 +11,9 @@ return {
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = {
       function()
-        require("astronvim.utils.status").heirline.buffer_picker(function(bufnr) require("astronvim.utils.buffer").close(bufnr) end)
+        require("astronvim.utils.status").heirline.buffer_picker(
+          function(bufnr) require("astronvim.utils.buffer").close(bufnr) end
+        )
       end,
       desc = "Pick to close",
     },
@@ -20,9 +22,21 @@ return {
     ["<leader>b"] = { name = "Buffers" },
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    ["<A-j>"] = { "<cmd>m+<cr>", desc = "Move line donw" },
+    ["<A-k>"] = { "<cmd>m-2<cr>", desc = "Move line up" },
+    ["<C-a>"] = { "ggVG", desc = "Select all lines" },
   },
   t = {
     -- setting a mapping to false will disable it
     -- ["<esc>"] = false,
+  },
+  v = {
+    ["<A-j>"] = { "<cmd>m'>+<cr>", desc = "Move line donw" },
+    ["<A-k>"] = { "<cmd>m-2<cr>", desc = "Move line up" },
+  },
+  i = {
+
+    ["<A-j>"] = { "<ESC><cmd>m+<cr>", desc = "Move line donw" },
+    ["<A-k>"] = { "<ESC><cmd>m-2<cr>", desc = "Move line up" },
   },
 }
