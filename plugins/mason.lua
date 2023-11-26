@@ -23,6 +23,7 @@ return {
         "emmet_ls",
         "html",
         "esbonio",
+        "clangd",
       })
     end,
   },

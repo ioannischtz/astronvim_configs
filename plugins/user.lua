@@ -1,14 +1,6 @@
 return {
   -- You can also add new plugins here as well:
   -- Add plugins, the lazy syntax
-  -- "andweeb/presence.nvim",
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "BufRead",
-  --   config = function()
-  --     require("lsp_signature").setup()
-  --   end,
-  -- },
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -26,56 +18,22 @@ return {
     },
   },
   {
-    "lvimuser/lsp-inlayhints.nvim",
+    "rcarriga/nvim-dap-ui",
+    dependencies = "mfussenegger/nvim-dap",
     config = function()
-      require("lsp-inlayhints").setup()
-      vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = "LspAttach_inlayhints",
-        callback = function(args)
-          if not (args.data and args.data.client_id) then return end
-
-          local bufnr = args.buf
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          require("lsp-inlayhints").on_attach(client, bufnr)
-        end,
-      })
+      local dap = require "dap"
+      local dapui = require "dapui"
+      dapui.setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
+      dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
+      dap.listeners.before.event_exited["dapui_config"] = function() dapui.close() end
     end,
-    event = "User AstroFile",
-  },
-  {
-    "kylechui/nvim-surround",
-    version = "*",
     event = "VeryLazy",
-    opts = {},
-  },
-  {
-    "Wansmer/treesj",
-    keys = {
-      {
-        "<leader>m",
-        "<CMD>TSJToggle<CR>",
-        desc = "Toggle Treesitter Join",
-      },
-    },
-    cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
-    opts = { use_default_keymaps = false },
-  },
-  {
-    "junegunn/vim-easy-align",
-    cmd = { "EasyAlign", "LiveEasyAlign" },
-    keys = { "<Plug>(EasyAlign)", "<Plug>(LiveEasyAlign)" },
-    auto = "init",
-  },
-  {
-    "ThePrimeagen/harpoon",
-    event = "BufRead",
-    config = function() require "user.mod.harpoon" end,
   },
   -- {
-  --   "folke/persistence.nvim",
+  --   "ThePrimeagen/harpoon",
   --   event = "BufRead",
-  --   config = function() require "user.mod.persistence" end,
+  --   config = function() require "user.mod.harpoon" end,
   -- },
   {
     "mbbill/undotree",
@@ -155,11 +113,6 @@ return {
     },
     event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
   },
-  -- {
-  --   "rafi/neoconf-venom.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  --   version = false,
-  -- },
   {
     "luk400/vim-jukit",
     ft = "ipynb",
@@ -183,11 +136,15 @@ return {
     opts = {},
   },
   {
+    "David-Kunz/jester",
+  },
+  {
     "mcchrish/zenbones.nvim",
     dependencies = {
       "rktjmp/lush.nvim",
     },
   },
+  { "jamestthompson3/nvim-remote-containers", event = "VeryLazy" },
   {
     "frenzyexists/aquarium-vim",
   },

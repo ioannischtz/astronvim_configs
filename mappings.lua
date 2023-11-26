@@ -29,6 +29,7 @@ return {
   t = {
     -- setting a mapping to false will disable it
     -- ["<esc>"] = false,
+    ["<esc>"] = { "<C-\\><C-n>", desc = "exit insert mode" },
   },
   v = {
     ["<A-j>"] = { "<cmd>m'>+<cr>", desc = "Move line donw" },

@@ -127,6 +127,24 @@ return {
           },
         },
       },
+      black = {
+        settings = {
+          line_length = 80,
+        },
+      },
+      -- flake8 = {
+      --   settings = {
+      --
+      --   }
+      -- },
+      clangd = {
+        capabilities = {
+          offsetEncoding = "utf-8",
+        },
+        initialization_options = {
+          fallback_flags = { "-std=c++17" },
+        },
+      },
       -- prettierd = {
       --   printwidth = 80,
       -- },
@@ -217,23 +235,49 @@ return {
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
     -- Set up custom filetypes
-    -- vim.filetype.add {
-    --   extension = {
-    --     foo = "fooscript",
-    --   },
-    --   filename = {
-    --     ["Foofile"] = "fooscript",
-    --   },
-    --   pattern = {
-    --     ["~/%.config/foo/.*"] = "fooscript",
-    --   },
-    -- }
+    vim.filetype.add {
+      extension = {
+        tpp = "cpp",
+      },
+      -- filename = {
+      --   ["Foofile"] = "fooscript",
+      -- },
+      pattern = {
+        ["*.tpp"] = "cpp",
+      },
+    }
     vim.filetype.add {
       extension = {
         mdx = "markdown.mdx",
       },
       filename = {},
       pattern = {},
+    }
+
+    require("clangd_extensions").setup {
+      server = {
+        cmd = {
+          "clangd",
+          "-j=4",
+          "--background-index",
+          "--clang-tidy",
+          "--fallback-style=llvm",
+          "--all-scopes-completion",
+          "--completion-style=detailed",
+          "--header-insertion=iwyu",
+          "--header-insertion-decorators",
+          "--pch-storage=memory",
+        },
+        initialization_options = {
+          fallback_flags = { "-std=c++20" },
+        },
+      },
+    }
+
+    require("twilight").setup {
+      dimming = {
+        alpha = 0.4,
+      },
     }
   end,
 }
