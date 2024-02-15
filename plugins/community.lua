@@ -26,6 +26,7 @@ return {
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.docker" },
+  { import = "astrocommunity.pack.angular" },
   -- { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.tailwindcss" },
@@ -61,5 +62,5 @@ return {
   { import = "astrocommunity.syntax.vim-easy-align" },
 
   -- UTILITY
-  { import = "astrocommunity.utility.neodim" },
+  -- { import = "astrocommunity.utility.neodim" },
 }
